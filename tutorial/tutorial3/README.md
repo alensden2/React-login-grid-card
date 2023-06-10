@@ -1,70 +1,341 @@
-# Getting Started with Create React App
+<!--- The following README.md sample file was adapted from https://gist.github.com/PurpleBooth/109311bb0361f32d87a2#file-readme-template-md by Gabriella Mosquera for academic use ---> 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# CSCI 5709 - Tutorial 3
 
-## Available Scripts
+* *Date Created*: 07 June 2023
+* *Last Modification Date*: 10 Jun 2023
 
-In the project directory, you can run:
+
+* *Deployed Netlify Application URL*: https://alen-john-t3.netlify.app/
+
+* *Tutorials & Assignments Private GitLab URL (Entire Repository)*: https://git.cs.dal.ca/alen/csci-5709-individual-b00930528-alen-john
+
+* *Tutorial 3 link to directory from individual repo (csci-5709-individual-b00930528-alen-john/tutorial/tutorial3):* https://git.cs.dal.ca/alen/csci-5709-individual-b00930528-alen-john/-/tree/main/tutorial/tutorial3
+
+## Authors
+
+* Alen John (al283652@dal.ca) (B00930528) - Developer
+
+## Deployment 
+
+### `git clone <repo_name>`
+
+This clones the repository from GitLab to GitHub. create a repository on GitHub/Bitbucket/GitLab (gitlab.com).
+This step is essential to deploy to netlify.
+
+### `git push <new_repo_name>`
+
+This pushes the code to the newly created repository. Using this repository this app can be deployed to netlify. This app is currently deployed at https://alen-john-t3.netlify.app/.
+
+## Local Testing 
+
+
+### `git clone <repo_name>`
+
+This clones the repository from GitLab to the local machine.
+
+### `npm install`
+After navigating to the directory of the cloned project, Run this command to install all dependencies.
 
 ### `npm start`
+Run the app using this command and navigate to http://localhost:3000.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Built With
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* [Node.js](https://nodejs.org/en/docs) - The JavaScript backend
+* [React.js](https://react.dev/learn) - The JavaScript frontend
+* [Netlify](https://docs.netlify.com/) - The Deployment enviroment
+* [NPX](https://docs.npmjs.com/cli/v7/commands/npx) - Node Package Execute, used to generate react app (npx create-react-app <app-name>)
+* [Mui](https://mui.com/material-ui/getting-started/overview/) - Material UI components for all the ui components
+* [React-router-dom](https://reactrouter.com/en/main) - React router for the routing between pages
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Sources Used
 
-### `npm run build`
+1) For creating the regular expressions required for validations i used : https://regexr.com/
+2) Learnt about how to avoid auto-refreshing of the page upon submission of form : https://www.robinwieruch.de/react-preventdefault/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### navbar.jsx
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+*Lines 11 - 34*
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+<AppBar position="static" sx={{ backgroundColor: 'white' }}>
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        href="/"
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'black',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        Vogmanic
+                    </Typography>
 
-### `npm run eject`
+                </Toolbar>
+            </Container>
+        </AppBar>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The code above was created by adapting the code in [MUI-Navbar](https://mui.com/material-ui/react-app-bar/) as shown below: 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import MenuIcon from '@mui/icons-material/Menu';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+const drawerWidth = 240;
+const navItems = ['Home', 'About', 'Contact'];
 
-## Learn More
+function DrawerAppBar(props) {
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  const drawer = (
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+      <Typography variant="h6" sx={{ my: 2 }}>
+        MUI
+      </Typography>
+      <Divider />
+      <List>
+        {navItems.map((item) => (
+          <ListItem key={item} disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={item} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
-### Code Splitting
+  const container = window !== undefined ? () => window().document.body : undefined;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar component="nav">
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+            MUI
+          </Typography>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            {navItems.map((item) => (
+              <Button key={item} sx={{ color: '#fff' }}>
+                {item}
+              </Button>
+            ))}
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Box component="nav">
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+      <Box component="main" sx={{ p: 3 }}>
+        <Toolbar />
+        <Typography>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
+          fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
+          aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
+          cum quibusdam sed quae, accusantium et aperiam? Quod itaque exercitationem,
+          at ab sequi qui modi delectus quia corrupti alias distinctio nostrum.
+          Minima ex dolor modi inventore sapiente necessitatibus aliquam fuga et. Sed
+          numquam quibusdam at officia sapiente porro maxime corrupti perspiciatis
+          asperiores, exercitationem eius nostrum consequuntur iure aliquam itaque,
+          assumenda et! Quibusdam temporibus beatae doloremque voluptatum doloribus
+          soluta accusamus porro reprehenderit eos inventore facere, fugit, molestiae
+          ab officiis illo voluptates recusandae. Vel dolor nobis eius, ratione atque
+          soluta, aliquam fugit qui iste architecto perspiciatis. Nobis, voluptatem!
+          Cumque, eligendi unde aliquid minus quis sit debitis obcaecati error,
+          delectus quo eius exercitationem tempore. Delectus sapiente, provident
+          corporis dolorum quibusdam aut beatae repellendus est labore quisquam
+          praesentium repudiandae non vel laboriosam quo ab perferendis velit ipsa
+          deleniti modi! Ipsam, illo quod. Nesciunt commodi nihil corrupti cum non
+          fugiat praesentium doloremque architecto laborum aliquid. Quae, maxime
+          recusandae? Eveniet dolore molestiae dicta blanditiis est expedita eius
+          debitis cupiditate porro sed aspernatur quidem, repellat nihil quasi
+          praesentium quia eos, quibusdam provident. Incidunt tempore vel placeat
+          voluptate iure labore, repellendus beatae quia unde est aliquid dolor
+          molestias libero. Reiciendis similique exercitationem consequatur, nobis
+          placeat illo laudantium! Enim perferendis nulla soluta magni error,
+          provident repellat similique cupiditate ipsam, et tempore cumque quod! Qui,
+          iure suscipit tempora unde rerum autem saepe nisi vel cupiditate iusto.
+          Illum, corrupti? Fugiat quidem accusantium nulla. Aliquid inventore commodi
+          reprehenderit rerum reiciendis! Quidem alias repudiandae eaque eveniet
+          cumque nihil aliquam in expedita, impedit quas ipsum nesciunt ipsa ullam
+          consequuntur dignissimos numquam at nisi porro a, quaerat rem repellendus.
+          Voluptates perspiciatis, in pariatur impedit, nam facilis libero dolorem
+          dolores sunt inventore perferendis, aut sapiente modi nesciunt.
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
 
-### Analyzing the Bundle Size
+DrawerAppBar.propTypes = {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+export default DrawerAppBar;
 
-### Making a Progressive Web App
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- <!---How---> The code in [MUI-Navbar](https://mui.com/material-ui/react-app-bar/) was implemented by... material UI to render responsive navbars
+- <!---Why---> [MUI-Navbar](https://mui.com/material-ui/react-app-bar/)'s Code was used because... to achieve standard look and feel throughout the application. Material UI provides various readymade ui components for react. Developers can build on this for their application
+- <!---How---> [MUI-Navbar](https://mui.com/material-ui/react-app-bar/)'s Code was modified by... adding 'sx' that is modifiying padding, fonts, structure according to this application. I also changed the color to my design to improve the UI for my app
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Form.jsx
 
-### Deployment
+*Lines 150 - 158*
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
+<TextField label="Last Name" variant="outlined" fullWidth margin="normal"
+                            value={lastName}
+                            helperText={lastNameError} error={Boolean(lastNameError)}
+                            onBlur={() => {
+                                if (lastName.trim() === '') {
+                                    setLastNameError('Last name cannot be empty');
+                                }
+                            }}
+                            onChange={(e) => setLastName(e.target.value)} />
 
-### `npm run build` fails to minify
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The code above was created by adapting the code in [Stack overflow](https://stackoverflow.com/questions/41296668/how-do-i-add-validation-to-the-form-in-my-react-component) as shown below: 
+
+```
+  render() {
+    return (
+      <div>
+        <form
+          name="contactform"
+          className="contactform"
+          onSubmit={this.contactSubmit.bind(this)}
+        >
+          <div className="col-md-6">
+            <fieldset>
+              <input
+                ref="name"
+                type="text"
+                size="30"
+                placeholder="Name"
+                onChange={this.handleChange.bind(this, "name")}
+                value={this.state.fields["name"]}
+              />
+              <span style={{ color: "red" }}>{this.state.errors["name"]}</span>
+              <br />
+              <input
+                refs="email"
+                type="text"
+                size="30"
+                placeholder="Email"
+                onChange={this.handleChange.bind(this, "email")}
+                value={this.state.fields["email"]}
+              />
+              <span style={{ color: "red" }}>{this.state.errors["email"]}</span>
+              <br />
+              <input
+                refs="phone"
+                type="text"
+                size="30"
+                placeholder="Phone"
+                onChange={this.handleChange.bind(this, "phone")}
+                value={this.state.fields["phone"]}
+              />
+              <br />
+              <input
+                refs="address"
+                type="text"
+                size="30"
+                placeholder="Address"
+                onChange={this.handleChange.bind(this, "address")}
+                value={this.state.fields["address"]}
+              />
+              <br />
+            </fieldset>
+          </div>
+        </form>
+      </div>
+    );
+  }
+}
+
+React.render(<Test />, document.getElementById("container"));
+
+```
+
+- <!---How---> The code in [Stackoverflow](https://stackoverflow.com/questions/41296668/how-do-i-add-validation-to-the-form-in-my-react-component) was implemented by... Boky, explaining how can we use onchange hook for validation 
+- <!---Why---> [Stackoverflow](https://stackoverflow.com/questions/41296668/how-do-i-add-validation-to-the-form-in-my-react-component)'s Code was used because... to understand how to store each change in the state to keep track of the validation.
+- <!---How---> [Stackoverflow](https://stackoverflow.com/questions/41296668/how-do-i-add-validation-to-the-form-in-my-react-component)'s Code was modified by... using my own implementation of the explained method, by keeping the validation check in a seperate function and maintaining the state and changing when required. state is mainitained by "const [firstName, setFirstName] = useState('');
+    const [firstNameError, setFirstNameError] = useState('');". I also created error states for the fields and used them to keep track of the validation errors.
+
+
+
+## Acknowledgments
+* Prof. Mosquera and all the TAs.
+* Netlify
+* CSCI5709 course material from Brightspace
+* Stackoverflow
+* GitHub
+* Gitlab
+* React
+* Node
