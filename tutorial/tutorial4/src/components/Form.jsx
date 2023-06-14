@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 
 function Form({ isLogin }) {
@@ -43,25 +45,50 @@ function Form({ isLogin }) {
         return regex.test(password);
     }
 
-    const mainBtnEvent = (event) => {
-        event.preventDefault();      
-
+    const mainBtnEvent = async (event) => {
+        event.preventDefault();
+    
         const formData = {
-            firstName,
-            lastName,
-            email,
-            password,
-            confirmPassword,
-          };
-      
-          navigate('/profile', {
-            state : {
-                firstName: formData.firstName,
+          email,
+          password,
+        };
+    
+        try {
+          const response = await axios.post('https://express-t4.onrender.com/api/login', {
+            username: formData.email,
+            password: formData.password,
+          });
+    
+          if (response.status === 200) {
+            navigate('/profile', {
+              state: {
                 email: formData.email,
-                lastName: formData.lastName
-            }
-          })
-    }
+              },
+            });
+          } else {
+            setPasswordError(response.data.message);
+          }
+        } catch (error) {
+            alert('Invalid Credentials')
+          console.log('Error:', error);
+        }
+      };
+        // const formData = {
+        //     firstName,
+        //     lastName,
+        //     email,
+        //     password,
+        //     confirmPassword,
+        //   };
+
+        //   navigate('/profile', {
+        //     state : {
+        //         firstName: formData.firstName,
+        //         email: formData.email,
+        //         lastName: formData.lastName
+        //     }
+        //   })
+    
 
     useEffect(() => {
         if (firstName.trim() !== '' && !validateFirstName(firstName)) {
@@ -96,7 +123,7 @@ function Form({ isLogin }) {
     }, [password])
 
     useEffect(() => {
-        if (password !== confirmPassword){
+        if (password !== confirmPassword) {
             setConfirmPasswordError('Password & confirm password do not match')
         }
         else {
@@ -104,30 +131,8 @@ function Form({ isLogin }) {
         }
     }, [password, confirmPassword])
     useEffect(() => {
-        setIsFormValid(
-          firstName.trim() !== '' &&
-            lastName.trim() !== '' &&
-            email.trim() !== '' &&
-            password.trim() !== '' &&
-            confirmPassword.trim() !== '' &&
-            !firstNameError &&
-            !lastNameError &&
-            !emailError &&
-            !passwordError &&
-            !confirmPasswordError
-        );
-      }, [
-        firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-        firstNameError,
-        lastNameError,
-        emailError,
-        passwordError,
-        confirmPasswordError,
-      ]);
+        setIsFormValid(email.trim() !== '' && password.trim() !== '' && !emailError && !passwordError);
+    }, [email, password, emailError, passwordError]);
     return (
         <Box sx={{
             width: '300px',
