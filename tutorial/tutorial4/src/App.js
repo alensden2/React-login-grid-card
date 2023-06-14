@@ -4,6 +4,7 @@ import './App.css';
 import Login from './login';
 import ProfilePage from "./profilePage";
 import Register from './registration';
+import IndividualProfilePage from "./individualProfilePage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />}></Route>
           <Route path='/profile' element={< ProfilePage />} />
+          <Route path='/individualPage/:id' element={<IndividualProfilePage />} />
         </Routes>
       </BrowserRouter>
     </>

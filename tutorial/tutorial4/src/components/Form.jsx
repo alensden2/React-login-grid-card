@@ -3,9 +3,9 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 
 
@@ -47,48 +47,48 @@ function Form({ isLogin }) {
 
     const mainBtnEvent = async (event) => {
         event.preventDefault();
-    
+
         const formData = {
-          email,
-          password,
+            email,
+            password,
         };
-    
+
         try {
-          const response = await axios.post('https://express-t4.onrender.com/api/login', {
-            username: formData.email,
-            password: formData.password,
-          });
-    
-          if (response.status === 200) {
-            navigate('/profile', {
-              state: {
-                email: formData.email,
-              },
+            const response = await axios.post('https://express-t4.onrender.com/api/login', {
+                username: formData.email,
+                password: formData.password,
             });
-          } else {
-            setPasswordError(response.data.message);
-          }
+
+            if (response.status === 200) {
+                navigate('/profile', {
+                    state: {
+                        email: formData.email,
+                    },
+                });
+            } else {
+                setPasswordError(response.data.message);
+            }
         } catch (error) {
             alert('Invalid Credentials')
-          console.log('Error:', error);
+            console.log('Error:', error);
         }
-      };
-        // const formData = {
-        //     firstName,
-        //     lastName,
-        //     email,
-        //     password,
-        //     confirmPassword,
-        //   };
+    };
+    // const formData = {
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     password,
+    //     confirmPassword,
+    //   };
 
-        //   navigate('/profile', {
-        //     state : {
-        //         firstName: formData.firstName,
-        //         email: formData.email,
-        //         lastName: formData.lastName
-        //     }
-        //   })
-    
+    //   navigate('/profile', {
+    //     state : {
+    //         firstName: formData.firstName,
+    //         email: formData.email,
+    //         lastName: formData.lastName
+    //     }
+    //   })
+
 
     useEffect(() => {
         if (firstName.trim() !== '' && !validateFirstName(firstName)) {

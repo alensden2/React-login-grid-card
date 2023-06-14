@@ -1,14 +1,15 @@
 // code from my tutorial 3
 
-import React, { useState, useEffect } from 'react';
-import Navbar from "./components/navbar";
-import { useLocation } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import axios from 'axios';
-import { styled } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Navbar from "./components/navbar";
+
 import ButtonBase from '@mui/material/ButtonBase';
+import { styled } from '@mui/material/styles';
 
 const Img = styled('img')({
     margin: 'auto',
@@ -22,6 +23,7 @@ function ProfilePage() {
 
     const location = useLocation();
     const { firstName, email, lastName } = location.state;
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,7 +38,9 @@ function ProfilePage() {
 
         fetchData();
     }, []);
-
+    const handleGridItemClick = (id) => {
+        navigate(`/individualPage/${id}`);
+    };
     return (
         <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
             <div>
@@ -54,6 +58,7 @@ function ProfilePage() {
                             backgroundColor: (theme) =>
                                 theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
                         }}
+                        onClick={() => handleGridItemClick(item._id)}
                     >
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={4}>
@@ -88,3 +93,6 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+
+
+// mui react grid - https://mui.com/material-ui/react-grid/
