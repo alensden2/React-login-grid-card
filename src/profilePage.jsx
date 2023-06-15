@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from "./components/navbar";
 
 import ButtonBase from '@mui/material/ButtonBase';
@@ -21,8 +21,6 @@ const Img = styled('img')({
 function ProfilePage() {
     const [userData, setUserData] = useState(null);
 
-    const location = useLocation();
-    const { firstName, email, lastName } = location.state;
     const navigate = useNavigate();
 
     useEffect(() => {
