@@ -1,9 +1,9 @@
 <!--- The following README.md sample file was adapted from https://gist.github.com/PurpleBooth/109311bb0361f32d87a2#file-readme-template-md by Gabriella Mosquera for academic use ---> 
 
-# CSCI 5709 - Tutorial 3
+# CSCI 5709 - Tutorial 4
 
-* *Date Created*: 07 June 2023
-* *Last Modification Date*: 10 Jun 2023
+* *Date Created*: 14 June 2023
+* *Last Modification Date*: 14 Jun 2023
 
 
 * *Deployed Netlify Application URL*: https://alen-john-t3.netlify.app/
